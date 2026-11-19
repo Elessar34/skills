@@ -1,0 +1,3 @@
+reels-animasyon kiti (SKILL.md, kit/engine, kit/tools, kit/example): MIT Lisansı.
+Serbestçe kullanılabilir, değiştirilebilir ve dağıtılabilir; kopyalarda bu lisans notu korunur.
+Üçüncü taraf bileşenler: three.js r160 — MIT (kit/vendor/THREE-LICENSE.txt) · Nunito fontu — SIL Open Font License 1.1 (kit/fonts/OFL.txt).
