@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="icon" href="data:,"><title>reels-animasyon</title>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.min.js"}}</script>
+<style>html,body{margin:0;background:#111;color:#ddd;font:14px sans-serif}canvas{display:block;max-height:100vh;margin:auto}</style></head><body>
+<script type="module">
+import * as ENG from "./engine.js";
+import { makeSets } from "./sets.js";
+import * as CAST from "./cast.js";
+import { makeProps } from "./props.js";
+const q = new URLSearchParams(location.search);
+const scale = parseFloat(q.get("scale") || "1");
+try {
+  const font = new FontFace("ReelsFont", "url(../fonts/Nunito.ttf)", { weight: "200 1000" }); await font.load(); document.fonts.add(font);
+} catch (e) { console.log("font yok:", e); }
+const story = await import("../story.js?v=" + Date.now());
+let words = [];
+try { const r = await fetch("../work/words.json?v=" + Date.now()); if (r.ok) words = await r.json(); } catch (e) {}
+const meta = story.meta || {};
+const E = new ENG.Engine({ w: 1080, h: 1920, fps: meta.fps || 30, scale });
+E.words = words; E.S = makeSets(E); E.P = makeProps(E); E.X = ENG; E.CAST = CAST; E.tail = meta.tail ?? 0.7;
+if (meta.captions === false) E.captions = false;
+if (meta.capStyle) E.capStyle = meta.capStyle;
+await story.build(E);
+const frames = meta.frames || E.endFrame();
+window.META = { frames, fps: E.fps, w: E.rw, h: E.rh };
+const draw = (f) => { E.beginFrame(); const S = story.frame(f, E); E.render(f, S); E._lastS = S; return S; };
+window.renderFrame = (f) => { draw(f); return E.out.toDataURL("image/jpeg", 0.93); };
+// kadraj kontrolü: son render edilen kare (stills) ya da verilen kare (check)
+window.checkLast = () => (E._lastS ? E.check(E._lastS) : []);
+window.checkFrame = (f) => { draw(f); return E.check(E._lastS); };
+// kapak: altyazısız kare + büyük başlık
+window.renderCover = (f, title, sub) => {
+  E.beginFrame(); const S = story.frame(f, E), ov = S.overlay; S.caption = false;
+  S.overlay = (g, w, h, sc) => { if (ov) ov(g, w, h, sc); E.drawTitle(g, w, h, title, sub); };
+  E.render(f, S); return E.out.toDataURL("image/jpeg", 0.95);
+};
+document.body.appendChild(E.out); E.out.style.height = "96vh";
+if (q.has("f")) draw(+q.get("f"));
+window.ready = true;
+</script></body></html>
