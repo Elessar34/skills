@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sabah Masası · Mühendislik Bülteni, Sürüm ve Görev İstasyonu</title>
+  <link rel="stylesheet" href="../ortak/temel.css">
+  <link rel="stylesheet" href="./sabah-masasi.css">
+</head>
+<body>
+  <div class="kabuk">
+    <header class="ust-bar">
+      <div class="kimlik">
+        <div class="kimlik-rozet mono">SM</div>
+        <div>
+          <div class="kimlik-baslik">Sabah Masası · Mühendislik Çalışma İstasyonu</div>
+          <div class="kimlik-alt mono" id="tarihEtiketi">27 Kasım 2026 · Cuma · 08:00 Sabah Taraması</div>
+        </div>
+      </div>
+      <div class="ust-sag">
+        <a class="btn birincil" id="btnOzetOlustur" href="./sabah-ozeti.html">
+          Yönetici Özetini Aç →
+        </a>
+      </div>
+    </header>
+
+    <div class="sekme-cubugu" role="tablist" aria-label="Sabah Masası bölümleri">
+      <button
+        type="button"
+        class="sekme-btn"
+        role="tab"
+        id="tab-bulten"
+        aria-selected="true"
+        aria-controls="panel-bulten"
+        data-sekme="bulten"
+      >
+        <span>1. Teknoloji Bülteni</span>
+        <span class="sekme-sayac mono num">4</span>
+      </button>
+      <button
+        type="button"
+        class="sekme-btn"
+        role="tab"
+        id="tab-surumler"
+        aria-selected="false"
+        aria-controls="panel-surumler"
+        data-sekme="surumler"
+      >
+        <span>2. Açık Kaynak Sürüm Panosu</span>
+        <span class="sekme-sayac mono num">5</span>
+      </button>
+      <button
+        type="button"
+        class="sekme-btn"
+        role="tab"
+        id="tab-gorevler"
+        aria-selected="false"
+        aria-controls="panel-gorevler"
+        data-sekme="gorevler"
+      >
+        <span>3. Günlük Görev Masası</span>
+        <span class="sekme-sayac mono num">4</span>
+      </button>
+    </div>
+
+    <main>
+      <section
+        id="panel-bulten"
+        class="sekme-panel"
+        role="tabpanel"
+        aria-labelledby="tab-bulten"
+      >
+        <div class="bulten-liste" id="bultenListe"></div>
+      </section>
+
+      <section
+        id="panel-surumler"
+        class="sekme-panel"
+        role="tabpanel"
+        aria-labelledby="tab-surumler"
+        hidden
+      >
+        <div class="panel-kutu">
+          <h2 class="panel-baslik">Takip Edilen Açık Kaynak Paketler ve Lisans Durumu</h2>
+          <p class="panel-alt">Tüm paketler OSI onaylı açık kaynak lisanslarıyla doğrulanmıştır</p>
+          <table class="surum-tablo num">
+            <thead>
+              <tr>
+                <th>Depo Adı</th>
+                <th>Güncel Sürüm</th>
+                <th>Lisans</th>
+                <th>GitHub Yıldızı</th>
+                <th>Durum</th>
+                <th>Teknik Not</th>
+              </tr>
+            </thead>
+            <tbody id="surumTabloGovde"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section
+        id="panel-gorevler"
+        class="sekme-panel"
+        role="tabpanel"
+        aria-labelledby="tab-gorevler"
+        hidden
+      >
+        <div class="panel-kutu">
+          <h2 class="panel-baslik">Bugünün Mühendislik ve Otomasyon Görevleri</h2>
+          <p class="panel-alt">Sabah özetine dahil edilecek yüksek öncelikli maddeler işaretlidir</p>
+          <div class="gorev-liste" id="gorevListe"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./veri-sabah.js"></script>
+  <script>
+    (function () {
+      const veri = window.SABAH_VERI;
+      document.getElementById('tarihEtiketi').textContent = veri.tarihEtiketi;
+
+      const seciliHaberler = new Set(veri.bulten.filter((b) => b.ozeteSecili).map((b) => b.id));
+      const tamamlananGorevler = new Set(veri.gorevler.filter((g) => g.tamamlandi).map((g) => g.id));
+
+      function bultenCiz() {
+        document.getElementById('bultenListe').innerHTML = veri.bulten
+          .map((b) => {
+            const secili = seciliHaberler.has(b.id);
+            return `
+              <article class="haber-kart ${secili ? 'secili' : ''}">
+                <div>
+                  <div class="haber-ust">
+                    <span class="kategori-etiket ${b.kritikMi ? 'kritik' : ''}">${b.seviye} · ${b.alan}</span>
+                    <span class="mono">${b.okumaSuresi}</span>
+                  </div>
+                  <h2 class="haber-baslik">${b.baslik}</h2>
+                  <p class="haber-ozet">${b.ozet}</p>
+                </div>
+                <div class="haber-alt">
+                  <span>Kaynak: Sabah Mühendislik Akışı</span>
+                  <button
+                    type="button"
+                    class="btn"
+                    style="height:30px;padding:0 10px;font-size:12px"
+                    data-haber-id="${b.id}"
+                    aria-pressed="${secili ? 'true' : 'false'}"
+                  >
+                    ${secili ? 'Özette Ekli ✓' : 'Özete Ekle'}
+                  </button>
+                </div>
+              </article>
+            `;
+          })
+          .join('');
+      }
+
+      function surumCiz() {
+        document.getElementById('surumTabloGovde').innerHTML = veri.surumler
+          .map(
+            (s) => `
+            <tr>
+              <td class="mono" style="font-weight:600">${s.depo}</td>
+              <td class="mono">${s.surum}</td>
+              <td class="mono">${s.lisans}</td>
+              <td class="mono num">${s.yildiz}</td>
+              <td><span class="durum-hap">${s.durum}</span></td>
+              <td style="color:var(--secondary)">${s.not}</td>
+            </tr>
+          `
+          )
+          .join('');
+      }
+
+      function gorevCiz() {
+        document.getElementById('gorevListe').innerHTML = veri.gorevler
+          .map((g) => {
+            const bitti = tamamlananGorevler.has(g.id);
+            return `
+              <label class="gorev-satir ${bitti ? 'tamamlandi' : ''}">
+                <input
+                  type="checkbox"
+                  data-gorev-id="${g.id}"
+                  ${bitti ? 'checked' : ''}
+                  style="width:16px;height:16px;accent-color:#161615"
+                >
+                <div>
+                  <div class="gorev-ad">${g.baslik}</div>
+                  <div class="gorev-meta mono">Modül: ${g.modul}</div>
+                </div>
+                <span class="oncelik-etiket ${g.yuksekMi ? 'yuksek' : ''}">${g.oncelik}</span>
+              </label>
+            `;
+          })
+          .join('');
+      }
+
+      function sekmeAc(hedefAdi) {
+        document.querySelectorAll('[role="tab"]').forEach((btn) => {
+          const aktif = btn.getAttribute('data-sekme') === hedefAdi;
+          btn.setAttribute('aria-selected', aktif ? 'true' : 'false');
+        });
+        document.querySelectorAll('[role="tabpanel"]').forEach((panel) => {
+          panel.hidden = panel.id !== `panel-${hedefAdi}`;
+        });
+      }
+
+      document.querySelectorAll('[role="tab"]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sekmeAc(btn.getAttribute('data-sekme'));
+        });
+      });
+
+      document.getElementById('bultenListe').addEventListener('click', (ev) => {
+        const btn = ev.target.closest('button[data-haber-id]');
+        if (!btn) return;
+        const id = btn.getAttribute('data-haber-id');
+        if (seciliHaberler.has(id)) seciliHaberler.delete(id);
+        else seciliHaberler.add(id);
+        bultenCiz();
+      });
+
+      document.getElementById('gorevListe').addEventListener('change', (ev) => {
+        const chk = ev.target.closest('input[data-gorev-id]');
+        if (!chk) return;
+        const id = chk.getAttribute('data-gorev-id');
+        if (chk.checked) tamamlananGorevler.add(id);
+        else tamamlananGorevler.delete(id);
+        gorevCiz();
+      });
+
+      const ilkSekme = new URLSearchParams(window.location.search).get('sekme');
+      if (ilkSekme && ['bulten', 'surumler', 'gorevler'].includes(ilkSekme)) {
+        sekmeAc(ilkSekme);
+      }
+
+      bultenCiz();
+      surumCiz();
+      gorevCiz();
+    })();
+  </script>
+</body>
+</html>

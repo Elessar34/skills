@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KuzeyBilişim · İş İstasyonu ve Geliştirici Donanımı</title>
+  <link rel="stylesheet" href="../ortak/temel.css">
+  <link rel="stylesheet" href="./fiyat-radar.css">
+</head>
+<body class="tema-kuzeybilisim">
+  <nav class="radar-serit" aria-label="Fiyat Radarı mağaza geçiş çubuğu">
+    <div class="radar-serit-ic">
+      <span class="mono">Fiyat Radarı Hedefleri · Mağaza 2 / 3</span>
+      <div class="radar-sekmeler">
+        <a class="radar-sekme" href="./teknoliman.html">1. TeknoLiman</a>
+        <a class="radar-sekme aktif" href="./kuzeybilisim.html">2. KuzeyBilişim</a>
+        <a class="radar-sekme" href="./anadolusepet.html">3. AnadoluSepet</a>
+        <a class="radar-sekme rapor-link mono" href="./rapor.html">Karşılaştırma Raporu →</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="magaza-ust">
+    <div class="magaza-ust-ic">
+      <div class="magaza-kimlik">
+        <div class="magaza-rozet mono">KB</div>
+        <div>
+          <div class="magaza-ad">KuzeyBilişim</div>
+          <div class="magaza-alt">İş İstasyonu, Sunucu Bileşenleri ve Geliştirici Donanımı · kuzeybilisim.local</div>
+        </div>
+      </div>
+      <div class="magaza-kargo-bilgi">
+        <span class="kargo-etiket num">25.000 TL üzeri sigortalı kargo ücretsiz (0 TL)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="magaza-govde">
+    <section aria-label="Ürün kataloğu">
+      <div class="filtre-cubugu">
+        <div class="filtre-sol">
+          <span class="filtre-baslik">Onaylı İş İstasyonu Bileşenleri</span>
+          <span class="filtre-sayac mono" id="filtreSayac">3 ürün listeleniyor</span>
+        </div>
+        <div class="filtre-kontroller">
+          <label class="onay-etiketi" for="chkYalnizStokta">
+            <input type="checkbox" id="chkYalnizStokta">
+            <span>Yalnız Stoktakileri Göster</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="urun-listesi" id="urunListesi"></div>
+    </section>
+
+    <aside class="sepet-panel" aria-label="KuzeyBilişim sepet özeti">
+      <div class="sepet-baslik-satir">
+        <h2 class="sepet-baslik">Sepet Özeti · KuzeyBilişim</h2>
+        <span class="sepet-adet mono" id="sepetAdet">3 kalem</span>
+      </div>
+
+      <div class="sepet-kalemler" id="sepetKalemler"></div>
+
+      <div class="kupon-kutu">
+        <div class="kupon-ust">
+          <span class="kupon-kod-etiket mono">KUZEY5</span>
+          <span class="mono num" style="font-size:12px;color:var(--secondary)">-%5 Sepet İndirimi</span>
+        </div>
+        <div class="kupon-aciklama">Üçlü iş istasyonu paketinde sepette net %5 indirim uygular</div>
+        <button
+          type="button"
+          class="btn kupon-btn"
+          id="btnKuponUygula"
+          aria-label="KUZEY5 sepette yüzde 5 indirim kuponunu uygula"
+        >
+          KUZEY5 Kuponunu Uygula
+        </button>
+      </div>
+
+      <div class="hesap-satirlari">
+        <div class="hesap-satir">
+          <span>Ara Toplam</span>
+          <span class="num" id="degerAraToplam">45.400 TL</span>
+        </div>
+        <div class="hesap-satir indirim" id="satirIndirim" style="display:none">
+          <span>Kupon İndirimi (KUZEY5 · %5)</span>
+          <span class="num" id="degerIndirim">-2.270 TL</span>
+        </div>
+        <div class="hesap-satir">
+          <span>Kargo Ücreti</span>
+          <span class="num" id="degerKargo">0 TL (Ücretsiz)</span>
+        </div>
+        <div class="hesap-satir toplam">
+          <span>Net Sepet Toplamı</span>
+          <span class="net-toplam-deger num" id="degerNetToplam">45.400 TL</span>
+        </div>
+      </div>
+
+      <a class="btn rapora-gec-link" href="./anadolusepet.html">Sonraki Mağaza: AnadoluSepet →</a>
+    </aside>
+  </main>
+
+  <script src="./veri.js"></script>
+  <script>
+    window.FIYAT_RADAR.magazaSayfasiBaslat('kuzeybilisim');
+  </script>
+</body>
+</html>

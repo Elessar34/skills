@@ -1,0 +1,367 @@
+/* TeklifMatik — Türkçe Serbest Çalışan (Freelance) Teklif ve KDV Hesaplayıcı Stili */
+/* Karakter: Kağıt fatura disiplini, koyu mürekkep tipografi, sıfır mor gradyan */
+
+:root {
+  --bg: #F3F4F6;
+  --surface: #FFFFFF;
+  --surface-alt: #F8FAFC;
+  --ink: #0F172A;
+  --secondary: #475569;
+  --muted: #64748B;
+  --line: rgba(15, 23, 42, 0.09);
+  --line-strong: rgba(15, 23, 42, 0.18);
+  --accent: #1D4ED8;
+  --accent-ink: #FFFFFF;
+  --good: #047857;
+  --good-bg: #ECFDF5;
+  --good-border: #10B981;
+  --bad: #B91C1C;
+  --bad-bg: #FEF2F2;
+  --bad-border: #EF4444;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.ust-serit {
+  background: #0F172A;
+  color: #E2E8F0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ust-serit-ic {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.uygulama-kimlik {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.uygulama-kare {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #1E293B;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.uygulama-ad {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.mod-anahtarlari {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.mod-link {
+  color: #CBD5E1;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mod-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.mod-link.aktif {
+  background: #FFFFFF;
+  color: #0F172A;
+  border-color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* Ana İkili Düzen */
+.govde {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 56px;
+}
+
+.ust-durum-satiri {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.sayfa-baslik {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.sayfa-alt {
+  margin: 0;
+  font-size: 14px;
+  color: var(--secondary);
+}
+
+/* Öz-Denetim Durum Rozeti */
+.denetim-rozeti {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--secondary);
+}
+
+.denetim-rozeti .nokta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #94A3B8;
+}
+
+.denetim-rozeti.gecti {
+  background: var(--good-bg);
+  border-color: var(--good-border);
+  color: var(--good);
+}
+
+.denetim-rozeti.gecti .nokta {
+  background: #10B981;
+}
+
+.denetim-rozeti.hatali {
+  background: var(--bad-bg);
+  border-color: var(--bad-border);
+  color: var(--bad);
+}
+
+.denetim-rozeti.hatali .nokta {
+  background: #EF4444;
+}
+
+.calisma-izgara {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.kart {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.kart-baslik {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.form-grup {
+  margin-bottom: 16px;
+}
+
+.form-etiket {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--secondary);
+  margin-bottom: 6px;
+}
+
+.form-girdi {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.form-ikili {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.hesapla-btn {
+  width: 100%;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 120ms ease;
+}
+
+.hesapla-btn:hover {
+  filter: brightness(0.94);
+}
+
+/* Sağ: Canlı Teklif Belgesi Önizlemesi */
+.fatura-belge {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.fatura-ust {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+
+.fatura-etiket {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.fatura-musteri {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.muhur-kutu {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px dashed var(--line-strong);
+  color: var(--muted);
+}
+
+.muhur-kutu.onayli {
+  border-style: solid;
+  border-color: var(--good-border);
+  background: var(--good-bg);
+  color: var(--good);
+}
+
+.fatura-satirlar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.fatura-satir {
+  display: flex;
+  justify-content: space-between;
+  color: var(--secondary);
+}
+
+.fatura-toplam-kutu {
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.fatura-toplam-kutu.anomali {
+  background: var(--bad-bg);
+  border-color: var(--bad-border);
+}
+
+.fatura-toplam-kutu.dogru {
+  background: var(--good-bg);
+  border-color: var(--good-border);
+}
+
+.toplam-etiket {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toplam-rakam {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.fatura-toplam-kutu.anomali .toplam-rakam {
+  color: var(--bad);
+}
+
+.fatura-toplam-kutu.dogru .toplam-rakam {
+  color: var(--good);
+}
+
+/* Konsol ve Öz-Denetim Günlüğü Kutusu */
+.konsol-kutu {
+  background: #0F172A;
+  color: #E2E8F0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.konsol-baslik {
+  display: flex;
+  justify-content: space-between;
+  color: #94A3B8;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.konsol-satir.hata {
+  color: #FCA5A5;
+}
+
+.konsol-satir.temiz {
+  color: #6EE7B7;
+}
+
+@media (max-width: 960px) {
+  .calisma-izgara {
+    grid-template-columns: 1fr;
+  }
+}
