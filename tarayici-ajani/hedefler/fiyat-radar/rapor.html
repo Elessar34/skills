@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiyat Radarı · Canlı Mağaza ve Sepet Karşılaştırma Raporu</title>
+  <link rel="stylesheet" href="../ortak/temel.css">
+  <link rel="stylesheet" href="./fiyat-radar.css">
+  <style>
+    .rapor-govde {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 28px 24px 56px;
+    }
+    .rapor-baslik-alani {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .rapor-ust-etiket {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .rapor-baslik {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .rapor-aksiyonlar {
+      display: flex;
+      gap: 10px;
+    }
+    /* 4 Özet Kartı — Unslop: sadece etiket, büyük rakam ve karşılaştırma notu */
+    .istatistik-izgara {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .istatistik-kart {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .istatistik-kart.kazanan {
+      border-color: #059669;
+      background: #F8FFFC;
+    }
+    .ist-etiket {
+      font-size: 13px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .ist-deger {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .istatistik-kart.kazanan .ist-deger {
+      color: #047857;
+    }
+    .ist-alt {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    /* Ana İkili Düzen: Sol Yatay Bar Grafiği, Sağ Bulgu Kartı */
+    .orta-izgara {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .panel-baslik {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .panel-alt {
+      margin: 0 0 20px;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+    .bar-listesi {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bar-satir-ust {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    .bar-magaza {
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .en-ucuz-etiket {
+      font-size: 11px;
+      font-weight: 600;
+      color: #065F46;
+      background: #D1FAE5;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .bar-iz {
+      height: 28px;
+      background: var(--surface-alt);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .bar-dolgu {
+      height: 100%;
+      background: #9CA3AF;
+      border-radius: 5px;
+    }
+    .bar-dolgu.lider {
+      background: #059669;
+    }
+    .bar-not {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+    .bulgu-listesi {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .bulgu-madde {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--surface-alt);
+      border: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+    .bulgu-madde strong {
+      color: var(--ink);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+    /* Detaylı Tablo */
+    .tablo-kapsayici {
+      overflow-x: auto;
+    }
+    table.karsilastirma {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    table.karsilastirma th,
+    table.karsilastirma td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+    }
+    table.karsilastirma th:first-child,
+    table.karsilastirma td:first-child {
+      text-align: left;
+    }
+    table.karsilastirma thead th {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--secondary);
+      background: var(--surface-alt);
+    }
+    table.karsilastirma th.lider-sutun,
+    table.karsilastirma td.lider-sutun {
+      background: #F0FDF4;
+    }
+    table.karsilastirma tr.toplam-satir td {
+      font-weight: 600;
+      font-size: 16px;
+      border-top: 2px solid var(--line-strong);
+      border-bottom: none;
+      color: var(--ink);
+    }
+    table.karsilastirma tr.toplam-satir td.lider-sutun {
+      color: #047857;
+    }
+    table.karsilastirma tr.indirim-satir td {
+      color: #059669;
+    }
+    @media (max-width: 1024px) {
+      .istatistik-izgara {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .orta-izgara {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="radar-serit" aria-label="Fiyat Radarı mağaza geçiş çubuğu">
+    <div class="radar-serit-ic">
+      <span class="mono">Fiyat Radarı · Otonom Tarayıcı Ajanı Çıktısı</span>
+      <div class="radar-sekmeler">
+        <a class="radar-sekme" href="./teknoliman.html">1. TeknoLiman</a>
+        <a class="radar-sekme" href="./kuzeybilisim.html">2. KuzeyBilişim</a>
+        <a class="radar-sekme" href="./anadolusepet.html">3. AnadoluSepet</a>
+        <a class="radar-sekme aktif rapor-link mono" href="./rapor.html">Karşılaştırma Raporu</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="rapor-govde">
+    <header class="rapor-baslik-alani">
+      <div>
+        <div class="rapor-ust-etiket mono">3 Mağaza · 3 Hedef Donanım · Kupon ve Kargo Doğrulanmış</div>
+        <h1 class="rapor-baslik">Canlı Donanım Sepeti Karşılaştırma Raporu</h1>
+      </div>
+      <div class="rapor-aksiyonlar">
+        <button type="button" class="btn" id="btnJsonIndir">JSON Raporu İndir</button>
+        <a class="btn birincil" href="./kuzeybilisim.html?kupon=1">Kazanan Sepeti Aç (KuzeyBilişim)</a>
+      </div>
+    </header>
+
+    <section class="istatistik-izgara" aria-label="Özet metrikler">
+      <div class="istatistik-kart kazanan" data-testid="kart-en-ucuz">
+        <div class="ist-etiket">En Düşük Net Sepet</div>
+        <div class="ist-deger num" id="kpiEnUcuz">43.130 TL</div>
+        <div class="ist-alt">KuzeyBilişim · KUZEY5 (%5) + ücretsiz kargo</div>
+      </div>
+      <div class="istatistik-kart">
+        <div class="ist-etiket">Maksimum Sepet Avantajı</div>
+        <div class="ist-deger num" id="kpiAvantaj">3.299 TL</div>
+        <div class="ist-alt">AnadoluSepet net sepetine (46.429 TL) kıyasla</div>
+      </div>
+      <div class="istatistik-kart">
+        <div class="ist-etiket">İkinci Sıraya Fark</div>
+        <div class="ist-deger num" id="kpiIkinciFark">1.769 TL</div>
+        <div class="ist-alt">TeknoLiman net sepetine (44.899 TL) kıyasla</div>
+      </div>
+      <div class="istatistik-kart">
+        <div class="ist-etiket">Elenen Stok Dışı Tuzak</div>
+        <div class="ist-deger num">2 Satır</div>
+        <div class="ist-alt">Tükenen eski seri SSD ve mağaza teşhir ekranı elendi</div>
+      </div>
+    </section>
+
+    <section class="orta-izgara">
+      <div class="panel">
+        <h2 class="panel-baslik">Mağaza Bazlı Net Sepet Maliyeti (Kupon + Kargo Dahil)</h2>
+        <p class="panel-alt">Tek aksan rengi en düşük net sepet maliyetini sağlayan mağazayı gösterir</p>
+        <div class="bar-listesi" id="barListesi"></div>
+      </div>
+
+      <div class="panel">
+        <h2 class="panel-baslik">Tarayıcı Ajanı Denetim Bulguları</h2>
+        <p class="panel-alt">Statik liste fiyatı yerine etkileşimli sepet doğrulaması neden kritik</p>
+        <ul class="bulgu-listesi">
+          <li class="bulgu-madde">
+            <strong>1. Kupon tıklaması sıralamayı değiştirdi</strong>
+            Kuponsuz ara toplamda TeknoLiman (45.200 TL), KuzeyBilişim'den (45.400 TL) 200 TL ucuz görünüyordu. Ajan <code class="mono">KUZEY5</code> butonuna tıklayınca KuzeyBilişim 43.130 TL'ye inerek lider oldu.
+          </li>
+          <li class="bulgu-madde">
+            <strong>2. Stok dışı düşük fiyat tuzakları temizlendi</strong>
+            TeknoLiman'daki 5.190 TL eski seri SSD ve AnadoluSepet'teki 8.250 TL teşhir monitörü stokta olmadığı için erişilebilirlik ağacı kontrolüyle sepet dışı bırakıldı.
+          </li>
+          <li class="bulgu-madde">
+            <strong>3. Kargo eşikleri net maliyete eklendi</strong>
+            TeknoLiman 50.000 TL eşiği altında kaldığından +149 TL, AnadoluSepet +249 TL kargo eklerken KuzeyBilişim 25.000 TL üstü ücretsiz kargo sağladı.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Ürün bazlı karşılaştırma tablosu">
+      <h2 class="panel-baslik">Kalem Kalem Fiyat, Kupon ve Kargo Matrisi</h2>
+      <p class="panel-alt">Tüm rakamlar stokta bulunan sıfır ürünler üzerinden doğrulanmıştır</p>
+      <div class="tablo-kapsayici">
+        <table class="karsilastirma num" id="karsilastirmaTablosu">
+          <thead>
+            <tr>
+              <th>Kalem / Maliyet Satırı</th>
+              <th class="lider-sutun">KuzeyBilişim (Kazanan)</th>
+              <th>TeknoLiman</th>
+              <th>AnadoluSepet</th>
+            </tr>
+          </thead>
+          <tbody id="tabloGovde"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="./veri.js"></script>
+  <script>
+    (function () {
+      const { MAGAZALAR, tlYaz, magazaSepetiHesapla } = window.FIYAT_RADAR;
+      const hedefIds = ['ssd', 'monitor', 'istasyon'];
+
+      const sonuclar = ['kuzeybilisim', 'teknoliman', 'anadolusepet'].map((id) =>
+        magazaSepetiHesapla(id, hedefIds, true)
+      );
+
+      const enYuksek = Math.max(...sonuclar.map((s) => s.netToplam));
+      const barListesiEl = document.getElementById('barListesi');
+
+      barListesiEl.innerHTML = sonuclar
+        .slice()
+        .sort((a, b) => a.netToplam - b.netToplam)
+        .map((s, idx) => {
+          const oran = Math.round((s.netToplam / enYuksek) * 100);
+          const liderMi = idx === 0;
+          return `
+            <div>
+              <div class="bar-satir-ust">
+                <span class="bar-magaza">
+                  ${s.magazaAd}
+                  ${liderMi ? '<span class="en-ucuz-etiket">En Düşük Sepet</span>' : ''}
+                </span>
+                <strong class="num">${tlYaz(s.netToplam)}</strong>
+              </div>
+              <div class="bar-iz">
+                <div class="bar-dolgu ${liderMi ? 'lider' : ''}" style="width:${oran}%"></div>
+              </div>
+              <div class="bar-not mono">
+                <span>Liste: ${tlYaz(s.araToplam)} · Kupon (${s.kuponKodu}): -${tlYaz(s.indirim)}</span>
+                <span>Kargo: ${s.kargo === 0 ? '0 TL' : tlYaz(s.kargo)}</span>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
+      function urunFiyatBul(magazaId, anahtar) {
+        const u = MAGAZALAR[magazaId].urunler.find((x) => x.hedefAnahtar === anahtar);
+        return u ? u.fiyat : 0;
+      }
+
+      const [kb, tl, an] = sonuclar;
+      const satirlar = [
+        {
+          ad: '2TB Gen4 NVMe SSD (Liste Fiyatı)',
+          kb: tlYaz(urunFiyatBul('kuzeybilisim', 'ssd')),
+          tl: tlYaz(urunFiyatBul('teknoliman', 'ssd')),
+          an: tlYaz(urunFiyatBul('anadolusepet', 'ssd'))
+        },
+        {
+          ad: '27" 2K IPS Monitör (Liste Fiyatı)',
+          kb: tlYaz(urunFiyatBul('kuzeybilisim', 'monitor')),
+          tl: tlYaz(urunFiyatBul('teknoliman', 'monitor')),
+          an: tlYaz(urunFiyatBul('anadolusepet', 'monitor'))
+        },
+        {
+          ad: 'Mini İş İstasyonu (Liste Fiyatı)',
+          kb: tlYaz(urunFiyatBul('kuzeybilisim', 'istasyon')),
+          tl: tlYaz(urunFiyatBul('teknoliman', 'istasyon')),
+          an: tlYaz(urunFiyatBul('anadolusepet', 'istasyon'))
+        },
+        {
+          ad: 'Ara Toplam (Kuponsuz)',
+          kb: tlYaz(kb.araToplam),
+          tl: tlYaz(tl.araToplam),
+          an: tlYaz(an.araToplam)
+        },
+        {
+          ad: 'Uygulanan Kupon İndirimi',
+          sinif: 'indirim-satir',
+          kb: `-${tlYaz(kb.indirim)} (${kb.kuponKodu})`,
+          tl: `-${tlYaz(tl.indirim)} (${tl.kuponKodu})`,
+          an: `-${tlYaz(an.indirim)} (${an.kuponKodu})`
+        },
+        {
+          ad: 'Kargo ve Sigorta Bedeli',
+          kb: '0 TL (Ücretsiz)',
+          tl: tlYaz(tl.kargo),
+          an: tlYaz(an.kargo)
+        },
+        {
+          ad: 'Net Sepet Toplamı',
+          sinif: 'toplam-satir',
+          kb: tlYaz(kb.netToplam),
+          tl: tlYaz(tl.netToplam),
+          an: tlYaz(an.netToplam)
+        }
+      ];
+
+      document.getElementById('tabloGovde').innerHTML = satirlar
+        .map(
+          (r) => `
+          <tr class="${r.sinif || ''}">
+            <td>${r.ad}</td>
+            <td class="lider-sutun">${r.kb}</td>
+            <td>${r.tl}</td>
+            <td>${r.an}</td>
+          </tr>
+        `
+        )
+        .join('');
+
+      document.getElementById('btnJsonIndir').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify({ olusturulma: '2026-11-27', sonuclar }, null, 2)], {
+          type: 'application/json;charset=utf-8'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'fiyat-radar-rapor.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarayıcı Ajanı · Yerel Türkçe Test Laboratuvarı</title>
+  <link rel="stylesheet" href="./ortak/temel.css">
+  <style>
+    :root {
+      --bg: #F5F5F4;
+      --surface: #FFFFFF;
+      --ink: #141413;
+      --secondary: #52524E;
+      --muted: #787774;
+      --line: rgba(20, 20, 19, 0.09);
+      --accent: #1D4ED8;
+    }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+    .kabuk {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 28px 64px;
+    }
+    .ust-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 32px;
+    }
+    .marka {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .marka-isaret {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #D4FF3A;
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .marka-baslik {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .durum-etiket {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--secondary);
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .durum-nokta {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16A34A;
+    }
+    .giris {
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+    .giris h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    .giris p {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 15px;
+    }
+    .izgara {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .kart {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .kart-no {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .kart h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .kart p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--secondary);
+      line-height: 1.55;
+    }
+    .baglantilar {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .baglanti {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background-color 140ms ease, border-color 140ms ease;
+    }
+    .baglanti:hover {
+      background: #F8FAFC;
+      border-color: rgba(20, 20, 19, 0.22);
+    }
+    .baglanti.birincil {
+      background: var(--ink);
+      color: #FFFFFF;
+      border-color: var(--ink);
+    }
+    .baglanti.birincil:hover {
+      background: #27272A;
+    }
+    .baglanti span.yol {
+      font-size: 12px;
+      opacity: 0.72;
+    }
+    @media (max-width: 960px) {
+      .izgara {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="kabuk">
+    <header class="ust-bar">
+      <div class="marka">
+        <div class="marka-isaret mono">&gt;_</div>
+        <div class="marka-baslik">Tarayıcı Ajanı · Yerel Test Laboratuvarı</div>
+      </div>
+      <div class="durum-etiket mono">
+        <span class="durum-nokta"></span>
+        <span>Sıfır CAPTCHA · İzole Yerel Hedefler</span>
+      </div>
+    </header>
+
+    <section class="giris">
+      <h1>Üç gerçekçi Türkçe web hedefi tek yerel sunucuda</h1>
+      <p>Claude Code ve Playwright MCP erişilebilirlik ağacı (<code class="mono">aria-ref</code>) ile çoklu mağaza fiyat istihbaratı, kendi hatasını tamir eden öz-denetim döngüsü ve sekmeli sabah raporu senaryolarını dış ağa çıkmadan test et.</p>
+    </section>
+
+    <main class="izgara">
+      <article class="kart">
+        <div>
+          <div class="kart-no mono">Hedef 01 · skills/fiyat-istihbarat</div>
+          <h2>Canlı Fiyat Radarı</h2>
+          <p>Üç ayrı donanım mağazasında 3 hedef ürünü tarar, stok dışı tuzak satırları eler, indirim kuponu butonlarına tıklar ve kargo dahil en düşük sepeti bulur.</p>
+        </div>
+        <nav class="baglantilar" aria-label="Fiyat Radarı bağlantıları">
+          <a class="baglanti birincil" href="./fiyat-radar/teknoliman.html">
+            <span>1. Mağaza: TeknoLiman</span>
+            <span class="yol mono">/teknoliman</span>
+          </a>
+          <a class="baglanti" href="./fiyat-radar/kuzeybilisim.html">
+            <span>2. Mağaza: KuzeyBilişim</span>
+            <span class="yol mono">/kuzeybilisim</span>
+          </a>
+          <a class="baglanti" href="./fiyat-radar/anadolusepet.html">
+            <span>3. Mağaza: AnadoluSepet</span>
+            <span class="yol mono">/anadolusepet</span>
+          </a>
+          <a class="baglanti" href="./fiyat-radar/rapor.html">
+            <span>Canlı Karşılaştırma Raporu</span>
+            <span class="yol mono">/rapor.html</span>
+          </a>
+        </nav>
+      </article>
+
+      <article class="kart">
+        <div>
+          <div class="kart-no mono">Hedef 02 · skills/oz-denetim-tamir</div>
+          <h2>TeklifMatik · KDV Hesaplayıcı</h2>
+          <p>Freelance teklif hesaplayıcı. Hatalı sürümde metin birleştirme (<code class="mono">120002400 TL</code>) ve konsolda gerçek <code class="mono">TypeError</code> üretir; onarıldığında <code class="mono">14.400 TL</code> doğrulanır.</p>
+        </div>
+        <nav class="baglantilar" aria-label="TeklifMatik bağlantıları">
+          <a class="baglanti birincil" href="./teklif-matik/">
+            <span>Canlı Uygulama (hesapla.js)</span>
+            <span class="yol mono">/teklif-matik/</span>
+          </a>
+          <a class="baglanti" href="./teklif-matik/?mod=hatali">
+            <span>Hatalı Mod Simülasyonu</span>
+            <span class="yol mono">?mod=hatali</span>
+          </a>
+          <a class="baglanti" href="./teklif-matik/?mod=onayli">
+            <span>Onarılmış Mod Doğrulaması</span>
+            <span class="yol mono">?mod=onayli</span>
+          </a>
+        </nav>
+      </article>
+
+      <article class="kart">
+        <div>
+          <div class="kart-no mono">Hedef 03 · skills/sabah-raporu</div>
+          <h2>Sabah Masası · 3 Sekmeli Pano</h2>
+          <p>Teknoloji bülteni, açık kaynak sürüm takip tablosu ve günlük mühendislik görevlerinden tek sayfalık temiz yönetici özeti üretir.</p>
+        </div>
+        <nav class="baglantilar" aria-label="Sabah Masası bağlantıları">
+          <a class="baglanti birincil" href="./sabah-masasi/">
+            <span>3 Sekmeli Çalışma İstasyonu</span>
+            <span class="yol mono">/sabah-masasi/</span>
+          </a>
+          <a class="baglanti" href="./sabah-masasi/sabah-ozeti.html">
+            <span>Üretilen Sabah Yönetici Özeti</span>
+            <span class="yol mono">/sabah-ozeti</span>
+          </a>
+        </nav>
+      </article>
+    </main>
+  </div>
+</body>
+</html>

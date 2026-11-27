@@ -1,0 +1,572 @@
+/* Fiyat Radarı — 3 Farklı Türkçe Donanım Mağazası ve Karşılaştırma Raporu Stili */
+/* Unslop uyumlu: 4px grid, tabular-nums, sıfır mor gradyan, her mağazaya özgü tek aksan */
+
+:root {
+  --bg: #F6F7F9;
+  --surface: #FFFFFF;
+  --surface-alt: #F1F3F6;
+  --ink: #111827;
+  --secondary: #4B5563;
+  --muted: #6B7280;
+  --line: rgba(17, 24, 39, 0.09);
+  --line-strong: rgba(17, 24, 39, 0.18);
+  --header-bg: #0F172A;
+  --header-ink: #F8FAFC;
+  --accent: #0284C7;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E0F2FE;
+  --accent-soft-ink: #0369A1;
+  --good: #059669;
+  --good-soft: #ECFDF5;
+  --warn: #B45309;
+  --warn-soft: #FEF3C7;
+  --bad: #DC2626;
+  --bad-soft: #FEF2F2;
+}
+
+/* Mağaza 1: TeknoLiman — Arduvaz Deniz Mavisi Perakendeci */
+body.tema-teknoliman {
+  --bg: #F4F6F9;
+  --header-bg: #0F172A;
+  --accent: #0284C7;
+  --accent-soft: #E0F2FE;
+  --accent-soft-ink: #075985;
+}
+
+/* Mağaza 2: KuzeyBilişim — Grafit ve Çam Yeşili Kurumsal İş İstasyonu Mağazası */
+body.tema-kuzeybilisim {
+  --bg: #F4F4F5;
+  --ink: #18181B;
+  --secondary: #52525B;
+  --muted: #71717A;
+  --header-bg: #18181B;
+  --accent: #059669;
+  --accent-soft: #D1FAE5;
+  --accent-soft-ink: #065F46;
+}
+
+/* Mağaza 3: AnadoluSepet — Sıcak Taş ve Kehribar Pazaryeri */
+body.tema-anadolusepet {
+  --bg: #F7F6F3;
+  --ink: #1C1917;
+  --secondary: #57534E;
+  --muted: #78716C;
+  --header-bg: #292524;
+  --accent: #B45309;
+  --accent-soft: #FEF3C7;
+  --accent-soft-ink: #92400E;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* Üst Laboratuvar Geçiş Şeridi (İnce ve Sessiz) */
+.radar-serit {
+  background: #0B0D11;
+  color: #A1A1AA;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+}
+
+.radar-serit-ic {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.radar-sekmeler {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.radar-sekme {
+  color: #D4D4D8;
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.radar-sekme:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.radar-sekme.aktif {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.18);
+  font-weight: 500;
+}
+
+.radar-sekme.rapor-link {
+  color: #D4FF3A;
+  border-color: rgba(212, 255, 58, 0.28);
+}
+
+/* Mağaza Başlığı */
+.magaza-ust {
+  background: var(--header-bg);
+  color: var(--header-ink);
+}
+
+.magaza-ust-ic {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.magaza-kimlik {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.magaza-rozet {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.magaza-ad {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.magaza-alt {
+  font-size: 12px;
+  color: rgba(248, 250, 252, 0.68);
+}
+
+.magaza-kargo-bilgi {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: rgba(248, 250, 252, 0.85);
+}
+
+.kargo-etiket {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Ana Sayfa Düzeni */
+.magaza-govde {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 368px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Araç ve Filtre Çubuğu */
+.filtre-cubugu {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filtre-sol {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filtre-baslik {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.filtre-sayac {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.filtre-kontroller {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.onay-etiketi {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.onay-etiketi input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+/* Ürün Listesi */
+.urun-listesi {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.urun-karti {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 216px;
+  gap: 20px;
+  align-items: center;
+  transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.urun-karti.secili {
+  border-color: var(--accent);
+}
+
+.urun-karti.tukendi {
+  opacity: 0.62;
+  background: var(--surface-alt);
+}
+
+.urun-karti.gizli {
+  display: none;
+}
+
+.urun-ikon-kutu {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  color: var(--secondary);
+}
+
+.urun-ikon-kutu svg {
+  width: 32px;
+  height: 32px;
+  stroke-width: 1.5;
+}
+
+.urun-kategori {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.urun-ad {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.urun-ozellikler {
+  font-size: 13px;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.urun-etiketler {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.durum-rozet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.durum-rozet.stokta {
+  background: var(--good-soft);
+  color: var(--good);
+}
+
+.durum-rozet.sinirli {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.durum-rozet.yok {
+  background: var(--bad-soft);
+  color: var(--bad);
+}
+
+.sku-kod {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.urun-fiyat-sutun {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.eski-fiyat {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.guncel-fiyat {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.indirimli-vurgu {
+  color: var(--good);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-alt);
+}
+
+.btn.birincil {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn.birincil:hover:not(:disabled) {
+  filter: brightness(0.94);
+}
+
+.btn.eklendi {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #FFFFFF;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Sağ Sütun: Canlı Sepet ve Kupon Hesaplayıcı */
+.sepet-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  position: sticky;
+  top: 20px;
+}
+
+.sepet-baslik-satir {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+.sepet-baslik {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.sepet-adet {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.sepet-kalemler {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+.sepet-kalem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.sepet-kalem-ad {
+  color: var(--secondary);
+}
+
+.sepet-kalem-tutar {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Kupon Kutusu */
+.kupon-kutu {
+  background: var(--surface-alt);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.kupon-ust {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.kupon-kod-etiket {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-soft-ink);
+  background: var(--accent-soft);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.kupon-aciklama {
+  font-size: 12px;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.kupon-btn {
+  width: 100%;
+}
+
+.kupon-btn.aktif {
+  background: var(--good);
+  border-color: var(--good);
+  color: #FFFFFF;
+}
+
+/* Hesap Özeti */
+.hesap-satirlari {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.hesap-satir {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--secondary);
+}
+
+.hesap-satir.indirim {
+  color: var(--good);
+  font-weight: 500;
+}
+
+.hesap-satir.toplam {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-strong);
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.net-toplam-deger {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rapora-gec-link {
+  margin-top: 16px;
+  width: 100%;
+  text-decoration: none;
+}
+
+@media (max-width: 1040px) {
+  .magaza-govde {
+    grid-template-columns: 1fr;
+  }
+  .urun-karti {
+    grid-template-columns: 56px 1fr;
+  }
+  .urun-fiyat-sutun {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+}

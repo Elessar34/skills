@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08:00 Sabah Yönetici Özeti · Otomatik Tarayıcı Ajanı Raporu</title>
+  <link rel="stylesheet" href="../ortak/temel.css">
+  <link rel="stylesheet" href="./sabah-masasi.css">
+  <style>
+    .ozet-kabuk {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+    .ozet-belge {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .belge-ust {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .belge-ust-etiket {
+      font-size: 12px;
+      color: var(--accent-ink);
+      background: var(--accent-soft);
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .belge-baslik {
+      margin: 0 0 6px;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .belge-alt {
+      margin: 0;
+      font-size: 14px;
+      color: var(--secondary);
+    }
+    .telemetri-kutu {
+      background: var(--surface-alt);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--secondary);
+      min-width: 240px;
+    }
+    .telemetri-satir {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 3px 0;
+    }
+    .bolum {
+      margin-bottom: 28px;
+    }
+    .bolum:last-child {
+      margin-bottom: 0;
+    }
+    .bolum-baslik {
+      margin: 0 0 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .madde-izgara {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .madde-kart {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .madde-alan {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-ink);
+      margin-bottom: 6px;
+    }
+    .madde-baslik {
+      margin: 0 0 6px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .madde-not {
+      margin: 0;
+      font-size: 13px;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+    .ikili-alt {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+    }
+    .kisa-liste {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .kisa-liste li {
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    @media (max-width: 900px) {
+      .madde-izgara,
+      .ikili-alt {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ozet-kabuk">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <a class="btn" href="./index.html">← 3 Sekmeli Sabah Masasına Dön</a>
+      <span class="mono" style="font-size:12px;color:var(--muted)">Üretim Modu: --isolated --headless</span>
+    </div>
+
+    <article class="ozet-belge" aria-label="Sabah yönetici özeti belgesi">
+      <header class="belge-ust">
+        <div>
+          <span class="belge-ust-etiket mono">08:00 Otomatik Sabah Brifingi · Doğrulandı</span>
+          <h1 class="belge-baslik">Günlük Mühendislik ve Açık Kaynak Yönetici Özeti</h1>
+          <p class="belge-alt">3 sekme tarandı (Teknoloji Bülteni, Açık Kaynak Sürüm Panosu, Günlük Görev Masası) · Kırıcı sürüm uyarısı yok</p>
+        </div>
+        <div class="telemetri-kutu mono num">
+          <div class="telemetri-satir"><span>Tarih</span><strong>27 Kasım 2026</strong></div>
+          <div class="telemetri-satir"><span>Taranan Sekme</span><strong>3 / 3</strong></div>
+          <div class="telemetri-satir"><span>Kritik Uyarı</span><strong style="color:var(--good)">0 Kırıcı Hata</strong></div>
+        </div>
+      </header>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">
+          <span>1. Günün Öne Çıkan 3 Kritik Teknik Maddesi</span>
+          <span class="mono" style="font-size:12px;color:var(--muted)">Sekme 1 Özeti</span>
+        </h2>
+        <div class="madde-izgara" id="ozetBultenIzgara"></div>
+      </section>
+
+      <div class="ikili-alt">
+        <section class="bolum">
+          <h2 class="bolum-baslik">
+            <span>2. Açık Kaynak Sürüm ve Lisans Durumu</span>
+            <span class="mono" style="font-size:12px;color:var(--muted)">Sekme 2 Özeti</span>
+          </h2>
+          <ul class="kisa-liste mono num" id="ozetSurumListe"></ul>
+        </section>
+
+        <section class="bolum">
+          <h2 class="bolum-baslik">
+            <span>3. Bugünün İlk 3 Odak Görevi</span>
+            <span class="mono" style="font-size:12px;color:var(--muted)">Sekme 3 Özeti</span>
+          </h2>
+          <ul class="kisa-liste" id="ozetGorevListe"></ul>
+        </section>
+      </div>
+    </article>
+  </div>
+
+  <script src="./veri-sabah.js"></script>
+  <script>
+    (function () {
+      const veri = window.SABAH_VERI;
+
+      document.getElementById('ozetBultenIzgara').innerHTML = veri.bulten
+        .filter((b) => b.kritikMi)
+        .slice(0, 3)
+        .map(
+          (b) => `
+          <div class="madde-kart">
+            <div class="madde-alan mono">${b.seviye} · ${b.alan}</div>
+            <h3 class="madde-baslik">${b.baslik}</h3>
+            <p class="madde-not">${b.ozet}</p>
+          </div>
+        `
+        )
+        .join('');
+
+      document.getElementById('ozetSurumListe').innerHTML = veri.surumler
+        .map(
+          (s) => `
+          <li>
+            <div>
+              <strong style="color:var(--ink)">${s.depo}</strong>
+              <div style="font-size:11px;color:var(--muted)">${s.lisans} · ★ ${s.yildiz}</div>
+            </div>
+            <span class="durum-hap">${s.surum}</span>
+          </li>
+        `
+        )
+        .join('');
+
+      document.getElementById('ozetGorevListe').innerHTML = veri.gorevler
+        .filter((g) => !g.tamamlandi)
+        .slice(0, 3)
+        .map(
+          (g) => `
+          <li>
+            <div>
+              <strong style="color:var(--ink);display:block">${g.baslik}</strong>
+              <span class="mono" style="font-size:11px;color:var(--muted)">${g.modul}</span>
+            </div>
+            <span class="oncelik-etiket yuksek" style="white-space:nowrap">${g.oncelik}</span>
+          </li>
+        `
+        )
+        .join('');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TeklifMatik · Serbest Çalışan Teklif ve KDV Hesaplayıcı</title>
+  <link rel="stylesheet" href="../ortak/temel.css">
+  <link rel="stylesheet" href="./teklif-matik.css">
+</head>
+<body>
+  <header class="ust-serit">
+    <div class="ust-serit-ic">
+      <div class="uygulama-kimlik">
+        <div class="uygulama-kare mono">TM</div>
+        <div>
+          <div class="uygulama-ad">TeklifMatik</div>
+        </div>
+      </div>
+      <nav class="mod-anahtarlari mono" aria-label="Çalışma modu seçimi">
+        <a class="mod-link" data-mod-link="canli" href="./">Canlı Kaynak (hesapla.js)</a>
+        <a class="mod-link" data-mod-link="hatali" href="./?mod=hatali">?mod=hatali</a>
+        <a class="mod-link" data-mod-link="onayli" href="./?mod=onayli">?mod=onayli</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="govde">
+    <div class="ust-durum-satiri">
+      <div>
+        <h1 class="sayfa-baslik">Proje Teklifi ve KDV Hesaplama Aracı</h1>
+        <p class="sayfa-alt">Serbest çalışan yazılım ve tasarım projeleri için net ara toplam, KDV ve onay mühürü oluşturucu</p>
+      </div>
+      <div class="denetim-rozeti mono" id="denetimRozeti" role="status" aria-live="polite">
+        <span class="nokta"></span>
+        <span id="denetimMetni">BEKLİYOR · HESAPLAMA YAPILMADI</span>
+      </div>
+    </div>
+
+    <div class="calisma-izgara">
+      <section class="kart" aria-label="Teklif giriş formu">
+        <h2 class="kart-baslik">Teklif Parametreleri</h2>
+        <form id="teklifFormu">
+          <div class="form-grup">
+            <label class="form-etiket" for="musteriAdi">Müşteri / Kurum Adı</label>
+            <input
+              type="text"
+              id="musteriAdi"
+              class="form-girdi"
+              value="Kuzey Lojistik A.Ş. — Web Arayüz Yenileme"
+            >
+          </div>
+
+          <div class="form-ikili">
+            <div class="form-grup">
+              <label class="form-etiket" for="araToplam">Hizmet Bedeli (KDV Hariç, TL)</label>
+              <input
+                type="number"
+                id="araToplam"
+                class="form-girdi num"
+                value="12000"
+                min="0"
+                step="100"
+              >
+            </div>
+
+            <div class="form-grup">
+              <label class="form-etiket" for="indirimTutari">İndirim Tutarı (TL)</label>
+              <input
+                type="number"
+                id="indirimTutari"
+                class="form-girdi num"
+                value="0"
+                min="0"
+                step="100"
+              >
+            </div>
+          </div>
+
+          <div class="form-grup">
+            <label class="form-etiket" for="kdvOrani">KDV Oranı</label>
+            <select id="kdvOrani" class="form-girdi num">
+              <option value="20" selected>%20 Genel Hizmet KDV</option>
+              <option value="10">%10 İndirimli Oran</option>
+              <option value="0">%0 İstisna / İhracat</option>
+            </select>
+          </div>
+
+          <button type="submit" class="hesapla-btn" id="btnHesapla">
+            Teklifi Hesapla
+          </button>
+        </form>
+      </section>
+
+      <section class="fatura-belge" aria-label="Teklif özeti ve konsol denetimi">
+        <div class="fatura-ust">
+          <div>
+            <div class="fatura-etiket mono">Teklif Belgesi · #TM-2026-114</div>
+            <div class="fatura-musteri" id="ciktiMusteri">Kuzey Lojistik A.Ş. — Web Arayüz Yenileme</div>
+          </div>
+          <div class="muhur-kutu mono" id="onayMuhuruKutusu">
+            Mühür Bekleniyor
+          </div>
+        </div>
+
+        <div class="fatura-satirlar num">
+          <div class="fatura-satir">
+            <span>Net Hizmet Matrahı</span>
+            <strong id="ciktiAraToplam">12.000 TL</strong>
+          </div>
+          <div class="fatura-satir">
+            <span id="ciktiKdvEtiket">KDV (%20)</span>
+            <strong id="ciktiKdvTutar">2.400 TL</strong>
+          </div>
+        </div>
+
+        <div class="fatura-toplam-kutu" id="toplamKutu">
+          <span class="toplam-etiket">Genel Toplam (KDV Dahil)</span>
+          <span class="toplam-rakam num" id="ciktiGenelToplam">—</span>
+        </div>
+
+        <div class="konsol-kutu mono" aria-label="Tarayıcı çalışma zamanı konsol günlüğü">
+          <div class="konsol-baslik">
+            <span>Çalışma Zamanı Konsolu (hesapla.js)</span>
+            <span id="konsolSayac">Hazır</span>
+          </div>
+          <div id="konsolCikti">
+            <div>[bilgi] Form hazır. "Teklifi Hesapla" butonuna tıklandığında hesaplama çalışır.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./hesapla.js"></script>
+</body>
+</html>

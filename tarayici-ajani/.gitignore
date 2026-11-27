@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.pyc
+
+# Gizli bilgiler
+.env
+*.env
+.env.*
+*.pem
+*.key
+
+# Yerel MCP ayarı (her kullanıcı kendi şablondan kopyalar)
+.mcp.json
+.claude/settings.local.json
+
+# Playwright çıktıları: ekran görüntüsü, trace, oturum ve profil
+.playwright-mcp/
+playwright-report/
+test-results/
+*.har
+*.trace.zip
+storage-state*.json
+user-data*/
+
+# Düzenleyici ve günlükler
+.vscode/
+.idea/
+*.log
+node_modules/
